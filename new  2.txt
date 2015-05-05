@@ -1,0 +1,63 @@
+uh
+
+có fix 1 vài cái nè
+
+trang sản phẩm chính là load tất cả category ra luôn không chừa cái nào hết
+
+cha con gì load sạch
+
+cái sản phẩm detail
+
+ci/view/detail/3
+
+Rubik V-cube 3 layer : thay cái này = column intro
+trang sản phẩm chính là cái gì
+sp hot hay sao
+
+là cái trang index đầu tiên
+
+đập vô mặt user
+
+ci/
+
+load hết ra cha con
+
+hot
+
+load hết
+
+à load hết nghĩa là load hết category ra
+
+nhưng sản phẩm thì mỗi category
+
+6 sản phẩm thôi
+
+tức là mỗi category
+
+2 dòng
+
+mỗi dòng 3 sản phẩm
+
+m load ra 6 sản phẩm đi, css chỉnh sau
+
+order theo ngày gần nhất vừa nhập
+
+rồi cái vụ search sản phẩm
+
+search theo tên là đc
+
+kết quả search m cho ra 1 trang trống
+
+var_dump ket quả ra
+
+còn lại để đó t làm phần search
+uh
+
+fix nhẹ nhẹ nha
+
+
+ráng t5 xong
+
+tuầnsau
+
+ok bro?
