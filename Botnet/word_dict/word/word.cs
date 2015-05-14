@@ -107,13 +107,34 @@ namespace word_dict.word
             int temp = 1;
             StringBuilder result = new StringBuilder();
             MySpecialChar specialChar = new MySpecialChar();
+            StringBuilder numbers = new StringBuilder();
             foreach (char c in command)
             {
-                result.Append(EncodeChar(c,temp,specialChar));
-                result.Append(" ");
-                temp = temp == 2 ? 1 : temp;
-                temp++;
+                if (('a' <= c && c <= 'z') || specialChar.EncodelList.ContainsKey(c.ToString()))
+                {
+                    result.Append(numbers.ToString()+' ');
+                    numbers.Clear();
+                    result.Append(EncodeChar(c, temp, specialChar));
+                    result.Append(" ");
+                }
+                else if ('0' <= c && c <= '9')
+                {
+                    numbers.Append(c);
+                }
+                else
+                {
+                    result.Append(numbers.ToString() + ' ');
+                    numbers.Clear();
+                    result.Append(c);
+                    result.Append(' ');
+                }
+
+                if (temp == 1)
+                    temp = 2;
+                else if (temp == 2)
+                    temp = 1;
             }
+            result.Append(numbers.ToString());
 
             return result.ToString();
         }
@@ -123,7 +144,7 @@ namespace word_dict.word
         public String EncodeChar(char c, int part, MySpecialChar specialChar)
         {
             StringBuilder result = new StringBuilder();
-            String temp ;
+            int runTime = 1;
             string wordType ="";
             switch(part){
                 case 1:
@@ -141,69 +162,122 @@ namespace word_dict.word
                         wordType = "v";
                         break;
                     }
-
             }
 
-
-            if (('a' <= c && c <= 'z'))
-            {
-                var values = (from pv in Dictionary
-                              where pv.Key.StartsWith(c.ToString())
-                              select pv);
-                int count = 0;
-                count = values.Count();
-                while (true)
-                {
-                    int index = ran.Next(count - 1);
-                    KeyValuePair<string,Word> word =values.ElementAt(index);
-                    if ('x' <= c && c <= 'z')
-                    {
-                        return this.RemoveSpecialChar(word.Key);
-                    }
-                    if(word.Value.IsKeyWord && !specialChar.EncodelList.ContainsValue(word.Key.Substring(0,2)) && word.Value.WordType == wordType)
-                    {
-                        return this.RemoveSpecialChar(word.Key);
-                    }      
-
-
-                }
-                
-
-            }
-            else if(specialChar.EncodelList.ContainsKey(c.ToString()))
-            {
                 try
                 {
-                    String encode = specialChar.EncodelList[c.ToString()];
-                    //  if(en
-                    var values = (from pv in Dictionary
-                                  where pv.Key.StartsWith(encode[0].ToString()) && pv.Key[1] == encode[1]
-                                  select pv);
-                    int count = 0;
-                    count = values.Count();
                     while (true)
                     {
-                        int index = ran.Next(count - 1);
-                        KeyValuePair<string,Word> word =values.ElementAt(index);
-                        if(word.Value.WordType == wordType)
+
+                        var values = GetWordCollection(c, specialChar, wordType, runTime);
+                        if (values != null)
                         {
-                            return this.RemoveSpecialChar(word.Key);
-                        }      
-
-
+                            int count = values.Count();
+                            if (count == 0)
+                            {
+                                runTime++;
+                                continue;
+                            }
+                            int index = ran.Next(count - 1);
+                            KeyValuePair<string, Word> word = values.ElementAt(index);
+                            return this.RemoveSpecialChar(word.Key)+'_'+runTime.ToString()+'_'+wordType;
+                        }
+                        else
+                        {
+                            throw (new Exception("No vaild wordlist for " + c.ToString() + " character!"));
+                        }
                     }
-
-
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message, "Encode Char error");
+                    MessageBox.Show(e.Message, "Encode Char \""+ c.ToString() +"\" error");
                 }
-
-            }
 
             return result.ToString();
 
+        }
+
+
+        private IEnumerable<KeyValuePair<string, Word>> GetWordCollection(char c, MySpecialChar specialChar, string wordType, int level=1)
+        {
+            if (('a' <= c && c <= 'z'))
+            {
+                switch (level)
+                {
+                    case 1:
+                        {
+                            var values = (from pv in Dictionary
+                                          where pv.Key.StartsWith(c.ToString()) && pv.Key.Length >= 2 && pv.Value.IsKeyWord && pv.Value.WordType.CompareTo(wordType) == 0 
+                                          && !specialChar.EncodelList.ContainsValue(pv.Key.Substring(0, 2))
+                                          select pv);
+                            return values;
+                        }
+                    case 2:
+                        {
+                            var values = (from pv in Dictionary
+                                          where pv.Key.StartsWith(c.ToString()) && pv.Key.Length >= 2 && pv.Value.WordType.CompareTo(wordType) == 0 && 
+                                          !specialChar.EncodelList.ContainsValue(pv.Key.Substring(0, 2))
+                                          select pv);
+                            return values;
+                        }
+                    case 3:
+                        {
+                            var values = (from pv in Dictionary
+                                          where pv.Key.StartsWith(c.ToString()) && pv.Key.Length >= 2 && !specialChar.EncodelList.ContainsValue(pv.Key.Substring(0, 2))
+                                          select pv);
+                            return values;
+                        }
+                    default:
+                        {
+                            return null;
+
+                        }
+
+                }
+            }
+            else if (specialChar.EncodelList.ContainsKey(c.ToString()))
+            {
+                String encode = specialChar.EncodelList[c.ToString()];
+                switch (level)
+                {
+                    case 1:
+                        {
+                            var values = (from pv in Dictionary
+                                          where pv.Key.StartsWith(encode[0].ToString()) && pv.Key.Length >= 2 && pv.Key[1] == encode[1] 
+                                          && pv.Value.IsKeyWord && pv.Value.WordType.CompareTo(wordType) == 0 
+                                          select pv);
+                            return values;
+                        }
+                    case 2:
+                        {
+                            var values = (from pv in Dictionary
+                                          where pv.Key.StartsWith(encode[0].ToString()) && pv.Key.Length >= 2  && pv.Key[1] == encode[1] 
+                                          && pv.Value.WordType.CompareTo(wordType) == 0 
+                                          select pv);
+                            return values;
+                        }
+                    case 3:
+                        {
+                            var values = (from pv in Dictionary
+                                          where pv.Key.StartsWith(encode[0].ToString()) && pv.Key.Length>=2 && pv.Key[1] == encode[1]
+                                          select pv);
+                            return values;
+                        }
+                    default:
+                        {
+                            return null;
+
+                        }
+
+                }
+
+            }
+            else
+            {
+                return null;
+            }
+            
+            
         }
 
 
@@ -281,6 +355,9 @@ namespace word_dict.word
 
 
     }
+
+
+
 
 
 
