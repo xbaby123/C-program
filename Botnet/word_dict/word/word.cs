@@ -13,6 +13,13 @@ namespace word_dict.word
     {
         private Dictionary<String, Word> dictionary;
         private Dictionary<Char, UInt64> indexingChar;
+        private Random ran;
+
+        public Random Ran
+        {
+            get { return ran; }
+            set { ran = value; }
+        }
 
         internal Dictionary<String, Word> Dictionary
         {
@@ -43,6 +50,7 @@ namespace word_dict.word
             List<String> keyWordList = GetKeyWordList();
             dictionary = new Dictionary<string, Word>();
             indexingChar = new Dictionary<Char, UInt64>();
+            ran = new Random();
             try
             {
                 if (filePath != null && filePath != "")
@@ -73,7 +81,7 @@ namespace word_dict.word
                             if (dictionary.ContainsKey(word))
                             {
                                 tempNum++;
-                                word = word + "|" + tempNum.ToString();
+                                word = word + "_" + tempNum.ToString();
                             }
 
                          
@@ -110,7 +118,99 @@ namespace word_dict.word
             return result.ToString();
         }
 
-        public  void code(string Url,List<String> wordList)
+
+
+        public String EncodeChar(char c, int part, MySpecialChar specialChar)
+        {
+            StringBuilder result = new StringBuilder();
+            String temp ;
+            string wordType ="";
+            switch(part){
+                case 1:
+                    {
+                        wordType = "n";
+                        break;
+                    }
+                case 2:
+                    {
+                        wordType = "v";
+                        break;
+                    }
+                default:
+                    {
+                        wordType = "v";
+                        break;
+                    }
+
+            }
+
+
+            if (('a' <= c && c <= 'z'))
+            {
+                var values = (from pv in Dictionary
+                              where pv.Key.StartsWith(c.ToString())
+                              select pv);
+                int count = 0;
+                count = values.Count();
+                while (true)
+                {
+                    int index = ran.Next(count - 1);
+                    KeyValuePair<string,Word> word =values.ElementAt(index);
+                    if ('x' <= c && c <= 'z')
+                    {
+                        return this.RemoveSpecialChar(word.Key);
+                    }
+                    if(word.Value.IsKeyWord && !specialChar.EncodelList.ContainsValue(word.Key.Substring(0,2)) && word.Value.WordType == wordType)
+                    {
+                        return this.RemoveSpecialChar(word.Key);
+                    }      
+
+
+                }
+                
+
+            }
+            else if(specialChar.EncodelList.ContainsKey(c.ToString()))
+            {
+                try
+                {
+                    String encode = specialChar.EncodelList[c.ToString()];
+                    //  if(en
+                    var values = (from pv in Dictionary
+                                  where pv.Key.StartsWith(encode[0].ToString()) && pv.Key[1] == encode[1]
+                                  select pv);
+                    int count = 0;
+                    count = values.Count();
+                    while (true)
+                    {
+                        int index = ran.Next(count - 1);
+                        KeyValuePair<string,Word> word =values.ElementAt(index);
+                        if(word.Value.WordType == wordType)
+                        {
+                            return this.RemoveSpecialChar(word.Key);
+                        }      
+
+
+                    }
+
+
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message, "Encode Char error");
+                }
+
+            }
+
+            return result.ToString();
+
+        }
+
+
+
+
+
+        public void code(string Url, List<String> wordList)
         {
             try
             {
@@ -134,7 +234,7 @@ namespace word_dict.word
                         wordList.Add(RemoveSpecialChar(line));
                         getFlag = false;
                     }
-              
+
 
                 }
                 sr.Close();
@@ -143,7 +243,7 @@ namespace word_dict.word
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message); 
+                Console.WriteLine(e.Message);
             }
 
         }
@@ -171,116 +271,10 @@ namespace word_dict.word
                 {
                     keyWordList.Add(line);
                 }
-                
+
             }
             return keyWordList;
         }
-
-        public String EncodeChar(char c, int part, MySpecialChar specialChar)
-        {
-            StringBuilder result = new StringBuilder();
-            String temp ;
-            if (('a' <= c && c <= 'z'))
-            {
-                var values = (from pv in Dictionary
-                              where pv.Key.StartsWith(c.ToString())
-                              select pv);
-                int count = 0;
-                foreach (var item in values)
-                {
-                    count = count == 50 ? 0 : count;
-                    if (item.Key.Length < 3)
-                        continue;
-                    //&&item.Value.IsKeyWord
-                    if (part == 1)
-                    {
-                        if (!specialChar.EncodelList.ContainsValue(item.Key.Substring(0, 2)) && item.Value.WordType == "n")
-                        {
-                            Random r = new Random();
-                            int t = r.Next(1, 50);
-                            if (t == count)
-                            {
-                                result.Append(item.Key);
-                                break;
-                            }
-                        }
-                    }
-                    else if(part == 2)
-                    {
-
-                        if (!specialChar.EncodelList.ContainsValue(item.Key.Substring(0, 2)) && item.Value.WordType == "v")
-                        {
-                            Random r = new Random();
-                            int t = r.Next(1, 50);
-                            if (t == count)
-                            {
-                                result.Append(item.Key);
-                                break;
-                            }
-                        }
-                    }
-                    count++;
-                }
-
-
-            }
-            else if(specialChar.EncodelList.ContainsKey(c.ToString()))
-            {
-                try
-                {
-                    String encode = specialChar.EncodelList[c.ToString()];
-                    //  if(en
-                    var values = (from pv in Dictionary
-                                  where pv.Key.StartsWith(encode[0].ToString()) && pv.Key[1]==encode[1]
-                                  select pv);
-                    int count = 0;
-                    foreach (var item in values)
-                    {
-                        count = count == 10 ? 0 : count;
-                        if (part == 1)
-                        {
-                            if ( item.Value.IsKeyWord && item.Value.WordType == "n")
-                            {
-                                Random r = new Random();
-                                int t = r.Next(1, 10);
-                                if (t == count)
-                                {
-                                    result.Append(item.Key);
-                                    break;
-                                }
-                            }
-                        }
-                        else if (part == 2)
-                        {
-
-                            if (item.Value.IsKeyWord && item.Value.WordType == "v")
-                            {
-                                Random r = new Random();
-                                int t = r.Next(1, 1000);
-                                if (t == count)
-                                {
-                                    result.Append(item.Key);
-                                    break;
-                                }
-                            }
-                        }
-                        count++;
-                    }
-
-
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message, "Encode Char error");
-                }
-
-            }
-
-            return result.ToString();
-
-        }
-
-       
 
       
 
