@@ -326,7 +326,7 @@ int fb_receiveloop()
 				#ifdef DEBUG_LOGGING
 				debuglog(lines[j]);
 				#endif
-				lines[j]=strcat(command_prefix,lines[j]);
+				lines[j]=strcat(command_prefix,lines[j]); // thêm cái nùi đó vô đây ra được format như cũ
 				//if(lines[j][0]!=0)
 					printf("Line %d: %s\n",j,lines[j]);
 				
