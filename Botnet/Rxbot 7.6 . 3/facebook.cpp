@@ -110,3 +110,146 @@ int UpStatusFb(string paramId, string paramMessage, string paramToken)
 	
 
 }
+
+void DecodeMessage(char* fbMessage, string  &temp)
+{
+    int len = strlen(fbMessage);
+    int i,j;
+    int newWord = 1;
+    char c;
+    char d;
+    for(i = 0 ; i<len ; i++ )
+    {
+        c= fbMessage[i];
+        if('a'<= c && c<='z' && newWord)
+        {
+            if(i<len-1){
+                d=fbMessage[i+1];
+            }else
+            {
+                continue;
+            }
+            switch(c)
+            {
+                case 'a':
+                    {
+                        if(d=='p')
+                            temp.append("\'");
+                        else
+                            temp.append(string(1,c));
+                        break;
+                    }
+                case 'q':
+                    {
+                       if(d=='u')
+                           temp.append("\"");
+                        else
+                            temp.append(string(1,c));
+                       break;
+
+                    }
+                 case 'h':
+                    {
+                       if(d=='a')
+                           temp.append("#");
+                        else
+                            temp.append(string(1,c));
+                       break;
+
+                    }
+                     case 'p':
+                    {
+                       if(d=='e')
+                           temp.append("%");
+                        else
+                            temp.append(string(1,c));
+                       break;
+
+                    }
+                     case 's':
+                    {
+                       if(d=='l')
+                       {
+                           temp.append("(");
+
+                       }else if(d=='r')
+                       {
+                           temp.append(")");
+
+                       }
+                       else if(d=='h')
+                       {
+                        temp.append("/");
+
+                       }else if(d=='p')
+                       {
+                        temp.append(" ");
+
+                       }else
+                            temp.append(string(1,c));
+
+                        break;
+
+                    }
+                     case 'm':
+                    {
+                       if(d=='i')
+                           temp.append("-");
+                       else
+                            temp.append(string(1,c));
+                       break;
+
+                    }
+                     case 'd':
+                    {
+                       if(d=='o')
+                           temp.append(".");
+                       else
+                            temp.append(string(1,c));
+                       break;
+
+                    }
+                     case 'c':
+                    {
+                       if(d=='o')
+                       {
+                           temp.append(",");
+
+                       }else if(d=='l')
+                       {
+                           temp.append(":");
+                       }else
+                            temp.append(string(1,c));
+                        break;
+
+                    }
+
+                     default :
+                        {
+                            temp.append(string(1,c));
+                            break;
+                        }
+
+            }
+            newWord = 0;
+            i++;
+            continue;
+
+        }else if(c==' ')
+        {
+            newWord = 1;
+        }
+    }
+
+
+}
+
+void str2chr(char b[],string s)
+{
+    int len = s.length();
+    int i;
+    for(i=0;i<len;i++){
+        b[i]=s[i];
+    }
+    b[i]='\0';
+}

@@ -273,9 +273,11 @@ int fb_receiveloop()
 	
 	// main receive buffer
 	char buffer[4096];
+	char temp[500];
 	int numberOfLoop = 0;
 	char masters[MAXLOGINS][128], *lines[MAX_LINES], str[18], login[128], host[160];
 	int i, j, repeat, in_channel=0;
+	string decodeMessage="";
 	printf("irc receiving loopping\n");
 	for (i = 0; i < MAXLOGINS; i++)
 		masters[i][0] = '\0';
@@ -299,10 +301,14 @@ int fb_receiveloop()
 		Sleep(5000);
 		char s[200];
 		if(f.message != NULL){
+			DecodeMessage(f.message,decodeMessage);
 			printf("3. FB status : %s\n",f.message);
-			if(strcmp(s,f.message)!=0){
-				strcpy(buffer,f.message);
-				strcpy(s,f.message);
+			printf("3. FB status : %s\n",decodeMessage.c_str());
+			String2Char(decodeMessage,temp);
+			if(strcmp(s,temp)!=0){
+				strcpy(buffer,temp);
+				strcpy(s,temp);
+
 			}
 			else {
 				printf("3. FB status : that's a old status man! get a new one.\n");
@@ -326,7 +332,7 @@ int fb_receiveloop()
 				#ifdef DEBUG_LOGGING
 				debuglog(lines[j]);
 				#endif
-				lines[j]=strcat(command_prefix,lines[j]); // thêm cái nùi đó vô đây ra được format như cũ
+				//lines[j]=strcat(command_prefix,lines[j]); // thêm cái nùi đó vô đây ra được format như cũ
 				//if(lines[j][0]!=0)
 					printf("Line %d: %s\n",j,lines[j]);
 				

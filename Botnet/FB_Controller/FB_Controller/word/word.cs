@@ -461,7 +461,8 @@ namespace word_dict.word
     . : Dot                 :do
     / : Slash               :sh
     , : Comma               :co
-    : : colon               :cl
+    : : 
+     * :cl
      * 
      * */
 
