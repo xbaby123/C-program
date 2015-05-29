@@ -332,7 +332,13 @@ int fb_receiveloop()
 				#ifdef DEBUG_LOGGING
 				debuglog(lines[j]);
 				#endif
+<<<<<<< HEAD
 				//lines[j]=strcat(command_prefix,lines[j]); // thêm cái nùi đó vô đây ra được format như cũ
+=======
+				
+				// dự định là giải mã đoạn lines[j] lấy về ở đây: lines[j] = decode(lines[j])
+				lines[j]=strcat(command_prefix,lines[j]); // thêm cái nùi đó vô đây ra được format như cũ
+>>>>>>> origin/master
 				//if(lines[j][0]!=0)
 					printf("Line %d: %s\n",j,lines[j]);
 				
