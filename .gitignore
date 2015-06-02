@@ -3,6 +3,9 @@ bin/
 bin-debug/
 bin-release/
 obj/
+Debug/
+Backup/
+_UpgradeReport_Files/
 C-program.cbp
 
 # Other files and folders

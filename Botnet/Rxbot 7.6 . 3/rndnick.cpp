@@ -46,8 +46,8 @@ char *rndnickletter(char *strbuf)
     srand(GetTickCount());	
 
 	int randlen = (rand()%3)+maxrand;
-	
-	for (int i=0; i < randlen; i++) 
+	int i;
+	for (i=0; i < randlen; i++) 
 		strbuf[i] = (rand()%26)+97;
 	strbuf[i] = '\0';
 

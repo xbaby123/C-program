@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1432871311 source:e:\github\c-program\botnet\botnet_module\module\main.cpp
+	<iostream>
+	<string>
+	<string.h>
+	<stdio.h>
+	<ctype.h>
+	<stdlib.h>
+

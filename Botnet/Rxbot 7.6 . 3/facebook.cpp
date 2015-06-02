@@ -2,12 +2,31 @@
 #pragma comment(lib,"wininet.lib")
 int String2Char(string s, char a[])
 {
-
 	int n = s.size();
 	int i = 0;
 	while(a[i]=s[i])
 		i++;
+	a[i]='\0';
 	return 1;
+}
+
+char* String2CharPointer(string s)
+{
+	int n = s.size();
+	char *a;
+	int i = 0;
+	a =(char *)malloc((n+1)*sizeof(char));
+	while(a[i]=s[i])
+		i++;
+	a[i]='\0';
+	return a;
+}
+
+void DebugChar()
+{
+	int c;
+	while( (c = getch()) !=' '){}
+
 }
 
 FbStatus GetFBStatuses(string paramId, string paramField,string paramToken)
@@ -120,7 +139,10 @@ void DecodeMessage(char* fbMessage, string  &temp)
     char d;
     for(i = 0 ; i<len ; i++ )
     {
+		
         c= fbMessage[i];
+		//printf("\n c = %c \n",c);
+		//DebugChar();
         if('a'<= c && c<='z' && newWord)
         {
             if(i<len-1){
@@ -218,8 +240,20 @@ void DecodeMessage(char* fbMessage, string  &temp)
                        }else if(d=='l')
                        {
                            temp.append(":");
-                       }else
+                       }else{
+						   //printf(" d = %c\n",d);
+						   //DebugChar();
+						   try{
+
                             temp.append(string(1,c));
+						   }
+						   catch(const std::exception& e)
+						   {
+								e.what();
+								//DebugChar();
+						   }
+
+					   }
                         break;
 
                     }

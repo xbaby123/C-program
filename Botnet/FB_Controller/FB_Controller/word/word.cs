@@ -181,7 +181,9 @@ namespace word_dict.word
                         }
                         int index = ran.Next(count - 1);
                         KeyValuePair<string, Word> word = values.ElementAt(index);
-                        return this.RemoveSpecialChar(word.Key) + '_' + runTime.ToString() + '_' + wordType;
+                        //return this.RemoveSpecialChar(word.Key) + '_' + runTime.ToString() + '_' + wordType;
+                        return this.RemoveSpecialChar(word.Key);
+
                     }
                     else
                     {

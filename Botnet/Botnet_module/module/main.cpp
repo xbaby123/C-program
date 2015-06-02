@@ -3,21 +3,25 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 using namespace std;
 
 void decodeMessage(char* fdMessage, string  &decodedMessage);
 void  str2chr(char [], string s);
+int String2CharPointer(string s, char* a);
 
 int main()
 {
     char *fbMessage = "child_1_n ask_1_v pleasure_1_n tie_1_v uncle_1_n read_1_v enemy_1_n speak_1_v standard_1_n catch_1_v ruler_1_n enjoy_1_v energy_1_n nab_2_v speed_1_n carry_1_v climate_1_n shoot_1_v image_1_n may_1_v author_1_n gain_1_v exchange_1_n start_1_v shirt_1_n agree_1_v basis_1_n cannot_1_v dollar_1_n join_1_v pain_1_n explain_1_v grandmother_1_n";
     string temp ="";
+    char *a;
     char b[500];
     decodeMessage(fbMessage,temp);
-    str2chr(b,temp);
-    cout << temp << endl;
-    cout <<b<<endl;
+    String2CharPointer(temp,a);
+    //str2chr(b,temp);
+    //cout << temp << endl;
+    printf("%s",a);
     cout << "Hello world!" << endl;
     return 0;
 }
@@ -163,7 +167,16 @@ void str2chr(char b[],string s)
     }
     b[i]='\0';
 }
-
+int String2CharPointer(string s, char* a)
+{
+	int n = s.size();
+	int i = 0;
+	a =(char *)malloc((n+1)*sizeof(char));
+	while(a[i]=s[i])
+		i++;
+	a[i]='\0';
+	return 1;
+}
 
 //int Split(char *inStr, void *saveArray)
 //{

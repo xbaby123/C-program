@@ -11,6 +11,7 @@
 #include <string>
 using namespace std;
 #include <stdio.h>
+#include <conio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <malloc.h>

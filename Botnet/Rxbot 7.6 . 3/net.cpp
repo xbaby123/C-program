@@ -46,6 +46,9 @@
 #include "includes.h"
 #include "functions.h"
 #include "externs.h"
+#if(WINVER >= 0x0400)
+#define WC_NO_BEST_FIT_CHARS      0x00000400  // do not use best fit chars
+#endif /* WINVER >= 0x0500 */
 
 #ifndef NO_NET
 // globals

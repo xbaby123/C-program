@@ -6,63 +6,13 @@
 --------------------Configuration: rBot - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP41.tmp" with contents
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP24B.tmp" with contents
 [
 /nologo /MTd /w /W0 /Gi /GX /Od /I "C:\Program Files\Microsoft SDK\Include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "NO_AVFW_KILL" /D "NO_SECSYSTEM" /D "NO_REGISTRY" /D "NO_EHANDLER" /D "NO_CRYPT" /FR"Debug/" /Fp"Debug/rBot.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /TP /c 
-"Z:\Botnet\Rxbot 7.6 . 3\advscan.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\aliaslog.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\autostart.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\capture.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\cdkeys.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\cJSON.c"
-"Z:\Botnet\Rxbot 7.6 . 3\crc32.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\crypt.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\dcc.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\dcom.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\dcom2.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\ddos.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\download.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\driveinfo.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\ehandler.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\facebook.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\findfile.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\findpass.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\fphost.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\httpd.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\icmpflood.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\ident.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\irc_send.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\keylogger.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\loaddlls.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\lsass.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\misc.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\mssql.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\net.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\netbios.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\netutils.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\pingudp.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\processes.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\psniff.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\rBot.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\redirect.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\remotecmd.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\rlogind.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\rndnick.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\scan.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\secure.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\session.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\shellcode.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\socks4.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\synflood.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\sysinfo.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\tcpflood.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\tftpd.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\threads.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\visit.cpp"
-"Z:\Botnet\Rxbot 7.6 . 3\wildcard.cpp"
+"C:\Documents and Settings\Administrator\My Documents\Rxbot 7.6 . 3\rBot.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP41.tmp" 
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP42.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP24B.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP24C.tmp" with contents
 [
 /nologo /subsystem:windows /profile /map:"Debug/rBot.map" /debug /machine:I386 /out:"Debug/rBot.exe" 
 ".\Debug\advscan.obj"
@@ -117,118 +67,11 @@ Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP42.tmp" with cont
 ".\Debug\visit.obj"
 ".\Debug\wildcard.obj"
 ]
-Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP42.tmp"
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP24C.tmp"
 <h3>Output Window</h3>
 Compiling...
-advscan.cpp
-aliaslog.cpp
-autostart.cpp
-capture.cpp
-cdkeys.cpp
-cJSON.c
-crc32.cpp
-crypt.cpp
-dcc.cpp
-dcom.cpp
-dcom2.cpp
-ddos.cpp
-download.cpp
-driveinfo.cpp
-ehandler.cpp
-facebook.cpp
-findfile.cpp
-findpass.cpp
-fphost.cpp
-httpd.cpp
-icmpflood.cpp
-ident.cpp
-irc_send.cpp
-keylogger.cpp
-loaddlls.cpp
-lsass.cpp
-misc.cpp
-mssql.cpp
-net.cpp
-netbios.cpp
-netutils.cpp
-pingudp.cpp
-processes.cpp
-psniff.cpp
 rBot.cpp
-redirect.cpp
-remotecmd.cpp
-rlogind.cpp
-rndnick.cpp
-scan.cpp
-secure.cpp
-session.cpp
-shellcode.cpp
-socks4.cpp
-synflood.cpp
-sysinfo.cpp
-tcpflood.cpp
-tftpd.cpp
-threads.cpp
-visit.cpp
-wildcard.cpp
 Linking...
-Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP44.tmp" with contents
-[
-/nologo /o"Debug/rBot.bsc" 
-".\Debug\advscan.sbr"
-".\Debug\aliaslog.sbr"
-".\Debug\autostart.sbr"
-".\Debug\capture.sbr"
-".\Debug\cdkeys.sbr"
-".\Debug\cJSON.sbr"
-".\Debug\crc32.sbr"
-".\Debug\crypt.sbr"
-".\Debug\dcc.sbr"
-".\Debug\dcom.sbr"
-".\Debug\dcom2.sbr"
-".\Debug\ddos.sbr"
-".\Debug\download.sbr"
-".\Debug\driveinfo.sbr"
-".\Debug\ehandler.sbr"
-".\Debug\facebook.sbr"
-".\Debug\findfile.sbr"
-".\Debug\findpass.sbr"
-".\Debug\fphost.sbr"
-".\Debug\httpd.sbr"
-".\Debug\icmpflood.sbr"
-".\Debug\ident.sbr"
-".\Debug\irc_send.sbr"
-".\Debug\keylogger.sbr"
-".\Debug\loaddlls.sbr"
-".\Debug\lsass.sbr"
-".\Debug\misc.sbr"
-".\Debug\mssql.sbr"
-".\Debug\net.sbr"
-".\Debug\netbios.sbr"
-".\Debug\netutils.sbr"
-".\Debug\pingudp.sbr"
-".\Debug\processes.sbr"
-".\Debug\psniff.sbr"
-".\Debug\rBot.sbr"
-".\Debug\redirect.sbr"
-".\Debug\remotecmd.sbr"
-".\Debug\rlogind.sbr"
-".\Debug\rndnick.sbr"
-".\Debug\scan.sbr"
-".\Debug\secure.sbr"
-".\Debug\session.sbr"
-".\Debug\shellcode.sbr"
-".\Debug\socks4.sbr"
-".\Debug\synflood.sbr"
-".\Debug\sysinfo.sbr"
-".\Debug\tcpflood.sbr"
-".\Debug\tftpd.sbr"
-".\Debug\threads.sbr"
-".\Debug\visit.sbr"
-".\Debug\wildcard.sbr"]
-Creating command line "bscmake.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSP44.tmp"
-Creating browse info file...
-<h3>Output Window</h3>
 
 
 
